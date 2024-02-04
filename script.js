@@ -1,5 +1,4 @@
 document.addEventListener('DOMContentLoaded', () => {
-    // const questions = ["1. I have the ability to organize ideas, resources, time, and people effectively. ", "Question 2", "Question 3"]; // Replace with actual questions
     var questions=[]
     var q_scores=[[]]
     giftsMapping = {
@@ -38,7 +37,6 @@ document.addEventListener('DOMContentLoaded', () => {
 	fetch(filePath)
 	    .then(response => response.text())
 	    .then(text => {
-		// Split the text into lines and then process each line
 		const lines = text.split('\n');
 		console.log(lines)
 		questions = lines.map(line => line.trim()).filter(line => line.length > 0);
@@ -63,13 +61,13 @@ document.addEventListener('DOMContentLoaded', () => {
                     <label>${number}</label>
                 `).join('')}
             `;
-            questionsContainer.appendChild(questionItem);
-        });
+	    questionsContainer.appendChild(questionItem);
+	});
 
-	    const inputs = document.querySelectorAll('.survey-option');
-    inputs.forEach(input => {
-        input.addEventListener('click', handleInputChange);
-    });
+	const inputs = document.querySelectorAll('.survey-option');
+	inputs.forEach(input => {
+	    input.addEventListener('click', handleInputChange);
+	});
 
     }
 
@@ -92,8 +90,6 @@ document.addEventListener('DOMContentLoaded', () => {
 	    return
 
 	}
-
-
 
 	// Calculate new scores
 	questions.forEach((question, questionIndex) => {
@@ -144,33 +140,33 @@ document.addEventListener('DOMContentLoaded', () => {
 	resultsContainer.innerHTML += resultsHTML;
     }
 
-    function displayResults() {
-    // Sort the gifts based on scores from highest to lowest
-    const sortedGifts = Object.keys(scores).sort((a, b) => scores[b] - scores[a]);
+    function displayResults_graph() {
+	// Sort the gifts based on scores from highest to lowest
+	const sortedGifts = Object.keys(scores).sort((a, b) => scores[b] - scores[a]);
 
-    // Set some dimensions and padding for the SVG
-    const svgWidth = 600;
-    const svgHeight = sortedGifts.length * 50 + 20; // 50px per bar + 20px padding
-    const barHeight = 30;
-    const padding = { top: 20, right: 20, bottom: 20, left: 150 }; // Increase left padding for text
+	// Set some dimensions and padding for the SVG
+	const svgWidth = 600;
+	const svgHeight = sortedGifts.length * 50 + 20; // 50px per bar + 20px padding
+	const barHeight = 30;
+	const padding = { top: 20, right: 20, bottom: 20, left: 150 }; // Increase left padding for text
 
-    let resultsHTML = '<h2>Your Spiritual Gifts Scores in Sorted Graph:</h2>';
-    resultsHTML += `<svg width="${svgWidth}" height="${svgHeight}">`;
+	let resultsHTML = '<h2>Your Spiritual Gifts Scores in Sorted Graph:</h2>';
+	resultsHTML += `<svg width="${svgWidth}" height="${svgHeight}">`;
 
-    sortedGifts.forEach((gift, index) => {
-        const barWidth = scores[gift] * 10; // Scale the bar width
-        const yPosition = index * 50 + padding.top; // 50px per bar
+	sortedGifts.forEach((gift, index) => {
+	    const barWidth = scores[gift] * 10; // Scale the bar width
+	    const yPosition = index * 50 + padding.top; // 50px per bar
 
-        resultsHTML += `
-            <rect width="${barWidth}" height="${barHeight}" x="${padding.left}" y="${yPosition}" style="fill:steelblue;" />
-            <text x="${padding.left - 5}" y="${yPosition + barHeight / 2 + 5}" fill="black" text-anchor="end">${gift}</text>
-            <text x="${barWidth + padding.left + 5}" y="${yPosition + barHeight / 2 + 5}" fill="black">${scores[gift]}</text>
-        `;
-    });
+	    resultsHTML += `
+		<rect width="${barWidth}" height="${barHeight}" x="${padding.left}" y="${yPosition}" style="fill:steelblue;" />
+		<text x="${padding.left - 5}" y="${yPosition + barHeight / 2 + 5}" fill="black" text-anchor="end">${gift}</text>
+		<text x="${barWidth + padding.left + 5}" y="${yPosition + barHeight / 2 + 5}" fill="black">${scores[gift]}</text>
+		`;
+	});
 
-    resultsHTML += '</svg>';
-    resultsContainer.innerHTML += resultsHTML;
-}
+	resultsHTML += '</svg>';
+	resultsContainer.innerHTML += resultsHTML;
+    }
 
     // Function to initialize default answers to 3
     function initializeDefaultAnswers() {
@@ -188,13 +184,15 @@ document.addEventListener('DOMContentLoaded', () => {
 	event.preventDefault();
 	resultsContainer.innerHTML = '';
 	calculateScores();
-	displayResults(); // This will display the bar chart
+	displayResults_graph(); // This will display the bar chart
 	displayResults_txt(); // This will display the text results with sorted scores
     });
 
     // Create the questions form
     const filePath = 'questions.txt';
     loadQuestionsFromFile(filePath);
+
+
     window.debug = {
 	questions: questions,
 	giftsMapping: giftsMapping,
@@ -203,3 +201,4 @@ document.addEventListener('DOMContentLoaded', () => {
 	q_scores: q_scores,
     };
 });
+
