@@ -7,9 +7,9 @@ The content for this survey was taken from Lifeway Christian Resources:
 
 little things I add are:
   1. default all answers to 3, so you can directly go the bottom and click done. Also if you want to modify some answers after click done, just modify it and click done again.
-  2. a sorted graph shows your 16 gifts score.
-  3. for each gift, I put all relevant questions under it and sorted by your score value.
-  4. a little debugger to export your answers (need some cs skill, to export your score for each question, grab window.debug.q_score[0])
+  2. a sorted graph to show your 16 gifts score.
+  3. group all relevant questions under each gift and sorted by your score value.
+  4. A small debug tool to export your answers (requires some computer science knowledge; to export your score for each question, access window.debug.q_score[0]).
 
 
      
